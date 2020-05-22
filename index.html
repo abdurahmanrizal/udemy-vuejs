@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue js</title>
+    <!-- script vue js -->
+    <script src="vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <input type="text" v-on:input="changeTitle" /> -->
+      <!-- v-once can use for disable re rendering in vuejs -->
+      <h1 v-once>{{title}}</h1>
+      <p>{{sayHello()}} - <a v-bind:href="link" target="_blank">google</a></p>
+      <hr />
+      <!-- render html code in vuejs -->
+      <p v-html="finishedLink"></p>
+      <hr />
+      <!-- deccrease number  -->
+      <button type="button" v-on:click="decrease">-</button>
+      <!-- <p>{{counter}}</p> -->
+      <input type="text" :value="counter" readonly />
+      <!-- increase number -->
+      <button type="button" v-on:click="increase()">+</button>
+      <hr />
+      <!-- create coordinate client x and y -->
+      <!-- with stop propagation -->
+      <p v-on:mousemove="getCoordinates">
+        Coordinates {{x}} / {{y}} -
+        <span v-on:mousemove.stop="">DEAD SPOT</span>
+        <!-- <span v-on:mousemove="stopMouse">DEAD SPOT</span> -->
+      </p>
+      <input type="text" v-on:keyup.enter.space="alertMe" />
+      <hr />
+      <!-- combine vue js n pure javascript -->
+      <button v-on:click="counter++">+</button>
+      <span>{{counter*2 > 10 ? 'great than 10' : 'smaller than 10'}}</span>
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          title: "Hello World!",
+          link: "https://google.com",
+          finishedLink:
+            "<a href='https://facebook.com' target='_blank'>Facebook</a>",
+          counter: 0,
+          x: 0,
+          y: 0,
+          magicName: "",
+          name: "abdurahman",
+        },
+        methods: {
+          changeTitle: function (event) {
+            this.title = event.target.value;
+          },
+          sayHello: function () {
+            this.title = "Hello!";
+            return this.title;
+          },
+          increase: function () {
+            this.counter++;
+          },
+          decrease: function () {
+            if (this.counter > 0) this.counter--;
+          },
+          getCoordinates: function (event) {
+            this.x = event.clientX;
+            this.y = event.clientY;
+          },
+          stopMouse: function (event) {
+            event.stopPropagation();
+          },
+          alertMe: function (event) {
+            alert("hello" + " " + event.target.value);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
